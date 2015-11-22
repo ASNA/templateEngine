@@ -1,0 +1,15 @@
+    BegSr AssignToEntity
+        DclSrParm {{ class.instance }} Type({{ class.type }})
+
+        {% for field in fields %}
+        {{ class.instance }}.{{ field.name }} = {{ class.prefix }}{{ field.name }}
+        {% endfor %}
+    EndSr
+
+    BegSr AssignFromEntity
+        DclSrParm {{ class.instance }} Type({{ class.type }})
+
+        {% for field in fields %}
+        {{ class.prefix }}{{ field.name }} = {{ class.instance }}.{{ field.name }}
+        {% endfor %}
+    EndSr

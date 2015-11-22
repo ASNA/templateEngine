@@ -1,6 +1,0 @@
-DclNamespace MyCompany.Entity
-
-BegClass Customer
-    DclProp CMName Type(*Char) Length(40) Access(*Public)
-    DclProp cmcustno Type(*Packed) Length(9,0) Access(*Public)
-EndClass

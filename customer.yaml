@@ -1,0 +1,39 @@
+---
+class:
+    name: Customer
+    type: Customer
+    instance: Cust
+    prefix: Customer_
+    namespace: MyCompany.Entity
+
+fields:
+  - name: CMCustNo
+    type: "*Packed"
+    length: 9,0
+  - name: CMName
+    type: "*Char"
+    length: 40
+  - name: CMAddr1
+    type: "*Char"
+    length: 35
+  - name: CMCity
+    type: "*Char"
+    length: 30
+  - name: CMState
+    type: "*Char"
+    length: 2
+  - name: CMCntry
+    type: "*Char"
+    length: 2
+  - name: CMPostCode
+    type: "*Char"
+    length: 10
+  - name: CMActive
+    type: "*Char"
+    length: 1
+  - name: CMFax
+    type: "*Packed"
+    length: 10,2
+  - name: CMPhone
+    type: "*Char"
+    length: 20

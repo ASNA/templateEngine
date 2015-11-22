@@ -1,0 +1,7 @@
+DclNamespace {{ class.namespace }}
+
+BegClass {{ class.name }}
+{% for field in fields %}
+    DclProp {{ (field.name ~ "            ") | truncate(16, True, "")}} Type({{ field.type }}) Length({{ field.length }}) Access(*Public)
+{% endfor %}
+EndClass
