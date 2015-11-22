@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <title>Test Example</title>
+  <meta name="description" content="A simple inquiry of function." />
+</head>
+
+<body>
+
+<div id="content">
+  <p>Why, hello there!</p>
+</div>
+
+</body>
+</html>

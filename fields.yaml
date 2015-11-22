@@ -1,0 +1,13 @@
+---
+class:
+    name: Customer
+    namespace: MyCompany.Entity
+fields:
+  -
+    length: 40
+    name: CMName
+    type: "*Char"
+  -
+    length: 9,0
+    name: cmcustno
+    type: "*Packed"
