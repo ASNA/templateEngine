@@ -1,5 +1,8 @@
 # Run this with this command line:
 # $ python expandTemplate.py -d [class_def_yaml_file] -t [template_file] -o [outputfilename]
+# For Windows install
+#    pip install PyYAML
+#    pip install jinja2
 
 import yaml,sys,jinja2,getopt,os.path
 
