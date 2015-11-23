@@ -1,0 +1,21 @@
+expandtemplate.py
+
+NAME
+    expandtemplate.py - expand a template into a file.
+
+DESCRIPTION
+    Expand a template into a text file.
+
+    Required arguments are:
+
+    -d, --deffile
+        The YAML definition file describing data to be used in the template.
+
+    -t, --templatefile
+        The template file
+
+    -o, --outfile
+        The outfile
+
+EXAMPLE
+    python expandtemplate.py -d customer.yaml -t EntityClass.jinja -o Customer.vr

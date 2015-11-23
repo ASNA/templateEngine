@@ -7,14 +7,9 @@
 import yaml,sys,jinja2,getopt,os.path
 
 def usage():
-    print('')
-    print('Generate a file from a template')
-    print('Usage:')
-    print('GetOps.py -t <template file> -d <def file> or ')
-    print('GetOps.py --templatefile=<template file> --ddeffile=<def file> or ')
-    print('GetOps.py -h or')
-    print('GetOps.py --help or')
-    print('')
+    with open('expandtemplate.py.docs', 'r') as f:
+        contents = f.read()
+        print(contents)
 
 def getArgs():
     classDefFile = ""
@@ -47,12 +42,17 @@ def getArgs():
             outfile = arg
 
     if (templateFile == ''):
-        print("'templatefile' argument must be defined")
+        print("'templatefile' argument must be defined.")
         usage()
         sys.exit(2)
 
     if (classDefFile == ''):
-        print("'deffile' argument must be defined")
+        print("'deffile' argument must be defined.")
+        usage()
+        sys.exit(2)
+
+    if (outfile == ''):
+        print("'outfile' argument must be defined.")
         usage()
         sys.exit(2)
 
