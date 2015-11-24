@@ -1,0 +1,9 @@
+    DclDB pgmDB DBName("*PUBLIC/DG NET Local")
+
+    DclDiskFile Customer +
+          Type(*Input) +
+          Org(*Indexed) +
+          Prefix(Customer_) +
+          File("*Libl/CMastNewL2") +
+          DB(pgmDB) +
+          ImpOpen(*No)
