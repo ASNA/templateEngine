@@ -1,5 +1,25 @@
-# Run this with this command line:
-# $ python expandTemplate.py -d [class_def_yaml_file] -t [template_file] -o [outputfilename]
+## expandtemplate.py
+##
+## NAME
+##     expandtemplate.py - expand a template into a file.
+##
+## DESCRIPTION
+##     Expand a template into a text file.
+##
+##     Required arguments are:
+##
+##     -d, --deffile
+##         The YAML definition file describing data to be used in the template.
+##
+##     -t, --templatefile
+##         The template file
+##
+##     -o, --outfile
+##         The outfile
+##
+## EXAMPLE
+##     python expandtemplate.py -d customer.yaml -t EntityClass.jinja -o Customer.vr
+##
 # For Windows install
 #    pip install PyYAML
 #    pip install jinja2
@@ -7,9 +27,10 @@
 import yaml,sys,jinja2,getopt,os.path
 
 def usage():
-    with open('expandtemplate.py.docs', 'r') as f:
-        contents = f.read()
-        print(contents)
+    with open('expandtemplate.py', 'r') as f:
+        for line in f:
+            if (line.startswith('##')):
+                print(line[2:]),
 
 def getArgs():
     classDefFile = ""
