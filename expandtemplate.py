@@ -91,8 +91,6 @@ def loadTemplate(templateFile):
 def writeFile(template, classDefFile, outfile):
     with open(classDefFile, 'r') as f:
         config = yaml.load(f)
-        if (outfile == ''):
-            outfile = (config['class']['name'] + ".vr").lower()
 
         outputText = template.render(config)
 
