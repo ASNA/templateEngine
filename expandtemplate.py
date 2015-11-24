@@ -6,6 +6,10 @@
 ## DESCRIPTION
 ##     Expand a template into a text file.
 ##
+##
+##     -h, --help
+##         Show help
+##
 ##     Required arguments are:
 ##
 ##     -d, --deffile
@@ -30,7 +34,7 @@ def usage():
     with open('expandtemplate.py', 'r') as f:
         for line in f:
             if (line.startswith('##')):
-                print(line[2:]),
+                sys.stdout.write(line[2:])
 
 def getArgs():
     classDefFile = ""
