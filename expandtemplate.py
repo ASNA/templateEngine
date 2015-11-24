@@ -4,8 +4,7 @@
 ##     expandtemplate.py - expand a template into a file.
 ##
 ## DESCRIPTION
-##     Expand a template into a text file.
-##
+##     Expand a template into a text file.##
 ##
 ##     -h, --help
 ##         Show help
@@ -22,7 +21,7 @@
 ##         The outfile
 ##
 ## EXAMPLE
-##     python expandtemplate.py -d customer.yaml -t EntityClass.jinja -o Customer.vr
+##     python expandtemplate.py -d def/customer.yaml -t tpl/EntityClass.jinja -o Customer.vr
 ##
 # For Windows install
 #    pip install PyYAML
