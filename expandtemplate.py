@@ -39,7 +39,6 @@ def getArgs():
     classDefFile = ""
     templateFile = ""
     outfile = ""
-    ##global classDefFile, templateFile
     try:
         options, remainder = getopt.getopt(sys.argv[1:],
             'd:t:o:h', ['deffile=','templatefile=','outfile=','help' ])
@@ -56,14 +55,20 @@ def getArgs():
             classDefFile = arg
             if ( not os.path.isfile(classDefFile)):
                 print( 'Class definition file not found: ' + classDefFile)
-                sys.exit(2)
+                sys.exit(1)
         elif opt in ('-t', '--templatefile'):
             templateFile = arg
             if ( not os.path.isfile(templateFile)):
-                print( 'template file not found: ' + templateFile)
-                sys.exit(2)
+                print( 'Template file not found: ' + templateFile)
+                sys.exit(1)
         elif opt in ('-o', '--outfile'):
             outfile = arg
+            try:
+                open(outfile, 'w').close()
+                os.unlink(outfile)
+            except OSError:
+                print('Outfile is not a valid file name: ' + outfile)
+                sys.exit(1)
 
     if (templateFile == ''):
         print("'templatefile' argument must be defined.")
