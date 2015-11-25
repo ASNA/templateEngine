@@ -82,9 +82,16 @@ def getArgs():
 
     return classDefFile, templateFile, outfile
 
+def expandTo(str, n):
+     return str.ljust(n, ' ')
+
 def loadTemplate(templateFile):
     templateLoader = jinja2.FileSystemLoader(searchpath=".")
     templateEnv = jinja2.Environment(loader=templateLoader, lstrip_blocks=True, trim_blocks=True)
+
+    # Register a custom filter.
+    templateEnv.filters['expandTo'] = expandTo
+
     template = templateEnv.get_template(templateFile)
     return template
 
