@@ -1,0 +1,49 @@
+---
+config:
+  needs_owner: true
+  model: Action
+  classname: activities_by_lead
+  excel_spreadsheet: C:\\Users\\roger\\Documents\\Programming\\Activities\\adjunct\\Activities by Lead.xlsx
+  excel_sheetname: Activity Advanced Find View
+
+imports:
+    - import: from models.model_owner import Owner
+    - import: from models.action_owner import Action
+
+map:
+  - name: owner
+    letter: D
+  - name: subject
+    letter: E
+  - name: activitytype
+    letter: F
+  - name: activitystatus
+    letter: G
+  - name: lastupdated
+    letter: I
+  - name: company
+    letter: J
+  - name: firstname
+    letter: K
+  - name: lastname
+    letter: L
+
+dates:
+  - columnname: lastupdated
+    name: last_updated_date
+
+columns:
+  - name: Owner
+    value: owner
+  - name: Company
+    mapped_name: company
+  - name: LastUpdated
+    date_part: CELL_DATE
+  - name: LastUpdatedIsoWeek
+    date_part: CELL_ISO_WEEK
+  - name: RowNumber
+    value: row_number
+  - name: CrmEntity
+    value: 'Lead'
+
+
