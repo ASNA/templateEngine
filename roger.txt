@@ -1,0 +1,25 @@
+
+
+False
+Action
+activities_by_lead
+"C:\\Users\\roger\\Documents\\Programming\\Activities\\adjunct\\Activities by Lead.xlsx"
+Activity Advanced Find View
+
+    owner
+    subject
+    activitytype
+    activitystatus
+    lastupdated
+    company
+    firstname
+    lastname
+
+
+    Owner
+    Company
+    uses a mapped name
+    LastUpdated
+    LastUpdatedIsoWeek
+    RowNumber
+    CrmEntity

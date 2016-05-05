@@ -1,0 +1,22 @@
+{% if config.needs_owner %}
+include owner
+{% endif %}
+
+
+{{config.needs_owner}}
+{{config.model}}
+{{config.classname}}
+"{{config.excel_spreadsheet}}"
+{{config.excel_sheetname}}
+
+{% for item in map %}
+    {{item.name}}
+{% endfor %}
+
+
+{% for cols in columns %}
+    {{ cols.name }}
+    {% if cols.mapped_name %}
+    uses a mapped name
+    {% endif %}
+{% endfor %}

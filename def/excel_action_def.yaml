@@ -1,6 +1,6 @@
 ---
 config:
-  needs_owner: true
+  needs_owner: false
   model: Action
   classname: activities_by_lead
   excel_spreadsheet: C:\\Users\\roger\\Documents\\Programming\\Activities\\adjunct\\Activities by Lead.xlsx
