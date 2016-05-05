@@ -1,3 +1,40 @@
+import peewee, os
+import xlrd, datetime
+import export_to_excel
+
+from models.model_owner import Owner
+from models.action_owner import Action
+
+class activities_by_lead:
+    def __init__(self):
+        self.excel_map = {
+    "owner" : "D"
+    "subject" : "E"
+    "activitytype" : "F"
+    "activitystatus" : "G"
+    "lastupdated" : "I"
+    "company" : "J"
+    "firstname" : "K"
+    "lastname" : "L"
+
+
+        "owner"          : "D",
+                          "subject"        : "E",
+                          "activitytype"   : "F",
+                          "activitystatus" : "G",
+                          "lastupdated"    : "I",
+                          "company"        : "J",
+                          "firstname"      : "K",
+                          "lastname"       : "L"}
+
+
+
+
+
+
+
+
+
 
 
 False

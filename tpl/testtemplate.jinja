@@ -1,3 +1,36 @@
+import peewee, os
+import xlrd, datetime
+import export_to_excel
+
+{% for i in imports %}
+{{i.import}}
+{% endfor %}
+
+class {{config.classname}}:
+    def __init__(self):
+        self.excel_map = {
+{% for m in map %}
+    "{{m.name}}" : "{{m.letter}}"
+{% endfor %}
+
+
+        "owner"          : "D",
+                          "subject"        : "E",
+                          "activitytype"   : "F",
+                          "activitystatus" : "G",
+                          "lastupdated"    : "I",
+                          "company"        : "J",
+                          "firstname"      : "K",
+                          "lastname"       : "L"}
+
+
+
+
+
+
+
+
+
 {% if config.needs_owner %}
 include owner
 {% endif %}
