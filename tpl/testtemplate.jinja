@@ -6,27 +6,18 @@ import export_to_excel
 {{i.import}}
 {% endfor %}
 
+
 class {{config.classname}}:
     def __init__(self):
-        self.excel_map = {
 {% for m in map %}
-    "{{m.name}}" : "{{m.letter}}"
+    {% if loop.first %}
+        self.excel_map = { "{{m.name}}" : "{{m.letter}}",
+    {% elif loop.last %}
+                           "{{m.name}}" : "{{m.letter}}" }
+    {% else %}
+                           "{{m.name}}" : "{{m.letter}}",
+    {% endif %}
 {% endfor %}
-
-
-        "owner"          : "D",
-                          "subject"        : "E",
-                          "activitytype"   : "F",
-                          "activitystatus" : "G",
-                          "lastupdated"    : "I",
-                          "company"        : "J",
-                          "firstname"      : "K",
-                          "lastname"       : "L"}
-
-
-
-
-
 
 
 
