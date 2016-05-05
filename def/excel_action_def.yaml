@@ -10,6 +10,13 @@ imports:
     - import: from models.model_owner import Owner
     - import: from models.action_owner import Action
 
+before_row_populate: |
+    owner_name = excel_sheet.cell(row, common.getColumn(excel_map, 'owner')).value
+    try:
+        owner_object = Owner.select().where(Owner.owner == owner_name).get()
+    except peewee.DoesNotExist:
+        continue
+
 map:
   - name: owner
     letter: D
