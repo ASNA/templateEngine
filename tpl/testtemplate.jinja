@@ -7,19 +7,43 @@ import export_to_excel
 {% endfor %}
 
 
+{% macro show_map_entry(map_entry) -%}
+"{{map_entry.name}}" : "{{map_entry.letter}}"
+{%- endmacro %}
+
 class {{config.classname}}:
     def __init__(self):
 {% for m in map %}
     {% if loop.first %}
-        self.excel_map = { "{{m.name}}" : "{{m.letter}}",
+        self.excel_map = { {{ show_map_entry(m) }},
     {% elif loop.last %}
-                           "{{m.name}}" : "{{m.letter}}" }
+                           {{ show_map_entry(m) }} }
     {% else %}
-                           "{{m.name}}" : "{{m.letter}}",
+                           {{ show_map_entry(m) }},
     {% endif %}
 {% endfor %}
 
+def populate_dictionary(row, row_number, excel_workbook, excel_sheet, owner_object, source_spreadsheet):
+{% for d in dates %}
+    {{d.name}}_cell = excel_sheet.cell(row, common.getColumn(excel_map, '{{d.columnname}}')).value
+    {{d.name}} = common.convert_excel_date_cell_to_date({{d.name}}_cell, excel_workbook)
+{% endfor %}
 
+    act = {'Owner': owner_object,
+           'Company': excel_sheet.cell(row, common.getColumn(excel_map, 'company')).value,
+           'FirstName': excel_sheet.cell(row, common.getColumn(excel_map, 'firstname')).value,
+           'LastName': excel_sheet.cell(row, common.getColumn(excel_map, 'lastname')).value,
+           'Subject': excel_sheet.cell(row, common.getColumn(excel_map, 'subject')).value,
+           'ActivityType': excel_sheet.cell(row, common.getColumn(excel_map, 'activitytype')).value,
+           'ActivityStatus': excel_sheet.cell(row, common.getColumn(excel_map, 'activitystatus')).value,
+           'LastUpdated': last_updated_date[0],
+           'LastUpdatedIsoWeek': last_updated_date[1],
+           'LastUpdatedIsoYear': last_updated_date[2],
+           'RowNumber': row_number,
+           'SourceSpreadsheet': source_spreadsheet,
+           'CrmEntity': 'Lead'
+           }
+    return act
 
 
 {% if config.needs_owner %}
@@ -44,3 +68,15 @@ include owner
     uses a mapped name
     {% endif %}
 {% endfor %}
+
+{#
+{% for m in map %}
+    {% if loop.first %}
+        self.excel_map = { "{{m.name}}" : "{{m.letter}}",
+    {% elif loop.last %}
+                           "{{m.name}}" : "{{m.letter}}" }
+    {% else %}
+                           "{{m.name}}" : "{{m.letter}}",
+    {% endif %}
+{% endfor %}
+#}

@@ -6,6 +6,7 @@ from models.model_owner import Owner
 from models.action_owner import Action
 
 
+
 class activities_by_lead:
     def __init__(self):
         self.excel_map = { "owner" : "D",
@@ -17,22 +18,25 @@ class activities_by_lead:
                            "firstname" : "K",
                            "lastname" : "L" }
 
+def populate_dictionary(row, row_number, excel_workbook, excel_sheet, owner_object, source_spreadsheet):
+    last_updated_date_cell = excel_sheet.cell(row, common.getColumn(excel_map, 'lastupdated')).value
+    last_updated_date = common.convert_excel_date_cell_to_date(last_updated_date_cell, excel_workbook)
 
-        "owner"          : "D",
-                          "subject"        : "E",
-                          "activitytype"   : "F",
-                          "activitystatus" : "G",
-                          "lastupdated"    : "I",
-                          "company"        : "J",
-                          "firstname"      : "K",
-                          "lastname"       : "L"}
-
-
-
-
-
-
-
+    act = {'Owner': owner_object,
+           'Company': excel_sheet.cell(row, common.getColumn(excel_map, 'company')).value,
+           'FirstName': excel_sheet.cell(row, common.getColumn(excel_map, 'firstname')).value,
+           'LastName': excel_sheet.cell(row, common.getColumn(excel_map, 'lastname')).value,
+           'Subject': excel_sheet.cell(row, common.getColumn(excel_map, 'subject')).value,
+           'ActivityType': excel_sheet.cell(row, common.getColumn(excel_map, 'activitytype')).value,
+           'ActivityStatus': excel_sheet.cell(row, common.getColumn(excel_map, 'activitystatus')).value,
+           'LastUpdated': last_updated_date[0],
+           'LastUpdatedIsoWeek': last_updated_date[1],
+           'LastUpdatedIsoYear': last_updated_date[2],
+           'RowNumber': row_number,
+           'SourceSpreadsheet': source_spreadsheet,
+           'CrmEntity': 'Lead'
+           }
+    return act
 
 
 
@@ -60,3 +64,4 @@ Activity Advanced Find View
     LastUpdatedIsoWeek
     RowNumber
     CrmEntity
+
