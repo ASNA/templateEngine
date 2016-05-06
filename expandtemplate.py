@@ -93,6 +93,7 @@ def expandTo(str, n):
 def loadTemplate(templateFile):
     templateLoader = jinja2.FileSystemLoader(searchpath=".")
     templateEnv = jinja2.Environment(loader=templateLoader, lstrip_blocks=True, trim_blocks=True)
+    # templateEnv = jinja2.Environment(loader=templateLoader, trim_blocks=True)
 
     # Register a custom filter.
     templateEnv.filters['expandTo'] = expandTo

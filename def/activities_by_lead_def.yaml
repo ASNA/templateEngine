@@ -1,0 +1,111 @@
+---
+config:
+  needs_owner: false
+  model: Action
+  model_instance: action
+  classname: activities_by_lead
+  excel_spreadsheet_linux: ~/VMs/spreadsheets/adjunct/Activities by Lead.xlsx
+  excel_spreadsheet_windows: ~/VMs/spreadsheets/adjunct/Activities by Lead.xlsx
+  excel_sheetname: Activity Advanced Find View
+
+imports:
+    - import: from models.model_owner import Owner
+    - import: from models.model_action import Action
+
+before_row_populate: |
+  owner_name = excel_sheet.cell(row, export_to_excel.getColumn(self.excel_map, 'owner')).value
+          try:
+              owner_object = Owner.select().where(Owner.owner == owner_name).get()
+              if not owner_object.active:
+                  return
+          except peewee.DoesNotExist:
+              return
+
+before_row_populate2:
+  - line: "owner_name = excel_sheet.cell(row, export_to_excel.getColumn(self.excel_map, 'owner')).value"
+  - line: "try:"
+  - line:     "owner_object = Owner.select().where(Owner.owner == owner_name).get()"
+  - line:     "if not owner_object.active:"
+  - line:         "return"
+  - line:     "except peewee.DoesNotExist:"
+  - line:         "return"
+
+
+map:
+  - name: owner
+    letter: D
+    nullable: false
+  - name: subject
+    letter: E
+    nullable: true
+  - name: activitytype
+    letter: F
+    nullable: false
+  - name: activitystatus
+    letter: G
+    nullable: false
+  - name: lastupdated
+    letter: I
+    nullable: false
+  - name: company
+    letter: J
+    nullable: true
+  - name: firstname
+    letter: K
+    nullable: true
+  - name: lastname
+    letter: L
+    nullable: true
+
+dates:
+  - columnname: lastupdated
+    name: last_updated_date
+
+columns:
+  - name: Owner
+    value: owner_object
+
+  - name: Company
+    mapped_name: company
+
+  - name: FirstName
+    mapped_name: firstname
+
+  - name: LastName
+    mapped_name: lastname
+
+  - name: Subject
+    mapped_name: subject
+
+  - name: ActivityType
+    mapped_name: activitytype
+
+  - name: ActivityStatus
+    mapped_name: activitystatus
+
+  - name: LastUpdated
+    date_part: export_to_excel.CELL_DATE
+    date_mapped_name: last_updated_date
+
+  - name: LastUpdatedIsoWeek
+    date_part: export_to_excel.CELL_ISO_WEEK
+    date_mapped_name: last_updated_date
+
+  - name: LastUpdatedIsoYear
+    date_part: export_to_excel.CELL_ISO_YEAR
+    date_mapped_name: last_updated_date
+
+  - name: LastUpdatedIsoYearWeek
+    date_part: export_to_excel.CELL_ISO_YEAR_WEEK_SLASH
+    date_mapped_name: last_updated_date
+
+  - name: RowNumber
+    value: row_number
+
+  - name: SourceSpreadsheet
+    value: self.excel_spreadsheet
+
+  - name: CrmEntity
+    value: "'Lead'"
+
+

@@ -1,0 +1,69 @@
+{# -------------------------------- #}
+{# macro to show a column map entry #}
+{# -------------------------------- #}
+{% macro write_map_entry(map_entry) -%}
+"{{map_entry.name}}" : "{{map_entry.letter}}"
+{%- endmacro %}
+{#             #}
+{% macro write_column_entry(column) -%}
+{% if column.mapped_name -%}
+            '{{ column.name }}': excel_sheet.cell(row, export_to_excel.getColumn(self.excel_map, '{{ column.mapped_name }}')).value
+{%- endif %}
+{% if column.value -%}
+            '{{ column.name }}': {{ column.value}}
+{%- endif %}
+{% if column.date_part -%}
+            '{{ column.name }}': {{ column.date_mapped_name}}[{{column.date_part}}]
+{%- endif %}
+{%- endmacro %}
+{#             #}
+import peewee, os
+import xlrd, datetime
+import export_to_excel
+
+{% for i in imports %}
+{{i.import}}
+{% endfor %}
+
+class {{config.classname}}:
+    def __init__(self):
+{% for m in map %}
+    {% if loop.first %}
+        self.excel_map = { {{ write_map_entry(m) }},
+    {% elif loop.last %}
+                           {{ write_map_entry(m) }} }
+    {% else %}
+                           {{ write_map_entry(m) }},
+    {% endif %}
+{% endfor %}
+
+        self.excel_spreadsheet = os.path.expanduser("{{ config.excel_spreadsheet_linux }}")
+        # self.excel_spreadsheet = "C:\\Users\\roger\\Documents\\Programming\\Activities\\adjunct\\Activities by Lead.xlsx"
+        self.excel_sheet_name = '{{ config.excel_sheetname }}'
+
+    def export(self):
+        export_to_excel.read(self.excel_spreadsheet, self.excel_sheet_name, self)
+
+    def export_row(self, row, row_number, excel_workbook, excel_sheet):
+    {% if before_row_populate %}
+        {{ before_row_populate }}
+    {% endif %}
+    {% for d in dates %}
+        {{ d.name }} = export_to_excel.get_excel_date_column(row, '{{ d.columnname }}', self.excel_map, excel_workbook, excel_sheet)
+    {% endfor %}
+
+    {% for col in columns %}
+        {% if loop.first %}
+        row_data = { {{ write_column_entry(col) }},
+        {% elif loop.last %}
+                     {{ write_column_entry(col) }} }
+        {% else %}
+                     {{ write_column_entry(col) }},
+        {% endif %}
+    {% endfor %}
+
+        {{ config.model_instance }} = {{ config.model }}(**row_data)
+        {{ config.model_instance }}.save()
+
+obj = {{ config.classname }}()
+obj.export()
